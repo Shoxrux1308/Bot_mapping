@@ -50,8 +50,7 @@ def message_handler(update, context):
         update.message.reply_text("Choose your product:", reply_markup=reply_markup)
 
 def button(update, context):
-    query = update.callback_query
-    query.answer()  
+    query = update.callback_query 
     if query.data == "smartphones":
         keyboard = [
             [InlineKeyboardButton("Samsung", callback_data='samsung')],
@@ -154,12 +153,12 @@ def button(update, context):
         reply_markup = InlineKeyboardMarkup(keyboard)
         query.edit_message_text("Choose your book:", reply_markup=reply_markup)
 
-updater = Updater(TOKEN, use_context=True)  
+updater = Updater(TOKEN)  
 dispatcher = updater.dispatcher
 start_handler = CommandHandler('start', start)
 message_handler = MessageHandler(Filters.text & ~Filters.command, message_handler)  
 button_handler = CallbackQueryHandler(button)
-dispatcher.add_handler(start_handler)
+dispatcher.add_handler(start_handler)                                   
 dispatcher.add_handler(message_handler)
 dispatcher.add_handler(button_handler)
 updater.start_polling()
